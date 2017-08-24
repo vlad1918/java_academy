@@ -30,9 +30,12 @@ public class CatalogView extends VerticalLayout implements View {
 		button.addClickListener(e -> UI.getCurrent().getNavigator().navigateTo(""));
 		button.addStyleName(ValoTheme.BUTTON_DANGER);
 		
+		CatalogComponent catalogComponent = new CatalogComponent(selectedStudentGroup);
+		
 		removeAllComponents();
 		addComponent(title);
 		addComponent(button);
+		addComponent(catalogComponent);
 
 	}
 }

@@ -16,13 +16,11 @@ public class StudentGroup {
 	@Id
 	private int id;
 	private String name;
-	@OneToMany(fetch = FetchType.EAGER)
-	@JoinColumn(name="student_group_id")
+	@OneToMany
+	@JoinColumn(name = "student_group_id")
 	private List<Student> students;
 	@ManyToMany
-	@JoinTable(name="student_group_course", 
-		joinColumns=@JoinColumn(name="student_group_id"), 
-		inverseJoinColumns=@JoinColumn(name="course_id"))
+	@JoinTable(name = "student_group_course", joinColumns = @JoinColumn(name = "student_group_id"), inverseJoinColumns = @JoinColumn(name = "course_id"))
 	private List<Course> courses;
 
 	public int getId() {
@@ -32,7 +30,7 @@ public class StudentGroup {
 	public void setId(int id) {
 		this.id = id;
 	}
-	
+
 	public List<Student> getStudents() {
 		return students;
 	}
@@ -48,7 +46,15 @@ public class StudentGroup {
 	public void setName(String name) {
 		this.name = name;
 	}
-	
+
+	public List<Course> getCourses() {
+		return courses;
+	}
+
+	public void setCourses(List<Course> courses) {
+		this.courses = courses;
+	}
+
 	@Override
 	public String toString() {
 		return getName();

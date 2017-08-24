@@ -4,6 +4,6 @@
 	@include valo;
 	
 	//Here you write css rules
-	
 	#my-id { border: 1px solid red; }
+	#catalog-component .v-gridlayout-slot { border: 1px solid black; }
 }

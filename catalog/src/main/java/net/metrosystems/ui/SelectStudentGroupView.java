@@ -16,6 +16,7 @@ import com.vaadin.ui.VerticalLayout;
 import com.vaadin.ui.Notification.Type;
 import com.vaadin.ui.UI;
 
+import net.metrosystems.controller.StudentGroupService;
 import net.metrosystems.domain.StudentGroup;
 import net.metrosystems.repository.StudentGroupRepository;
 
@@ -24,14 +25,14 @@ import net.metrosystems.repository.StudentGroupRepository;
 public class SelectStudentGroupView extends VerticalLayout implements View {
 
 	@Autowired
-	StudentGroupRepository studentGroupRepository;
+	StudentGroupService studentGroupService;
 	
 	@Override
 	public void enter(ViewChangeEvent event) {
 		
 		//TODO get studentGroups for a specific professor, not all of them
 		List<StudentGroup> allStudentGroups = new ArrayList<>();
-		studentGroupRepository.findAll().forEach(s -> allStudentGroups.add(s));
+		studentGroupService.findStudentGroupWithStudentsAndCourses().forEach(s -> allStudentGroups.add(s));
 		
 		ComboBox<StudentGroup> studentGroupsCombo = new ComboBox<>("Select a class of students:");
 		studentGroupsCombo.setItems(allStudentGroups);
