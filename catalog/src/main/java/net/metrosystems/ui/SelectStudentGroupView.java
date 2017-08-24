@@ -35,6 +35,13 @@ public class SelectStudentGroupView extends VerticalLayout implements View {
 		
 		ComboBox<StudentGroup> studentGroupsCombo = new ComboBox<>("Select a class of students:");
 		studentGroupsCombo.setItems(allStudentGroups);
+		
+		//if there is a studentGroup in session then preselect it in the combo box
+		StudentGroup sessionStudentGroup = (StudentGroup) UI.getCurrent().getSession().getAttribute("selectedStudentGroup");
+		if (sessionStudentGroup != null) {
+			studentGroupsCombo.setValue(sessionStudentGroup);
+		}
+		
 		Button actionButton = new Button("See catalog");
 		
 		actionButton.addClickListener(e -> {
@@ -45,6 +52,7 @@ public class SelectStudentGroupView extends VerticalLayout implements View {
 						, Type.ERROR_MESSAGE);
 			} else {
 				//Go to catalogView
+				UI.getCurrent().getSession().setAttribute("selectedStudentGroup", studentGroupsCombo.getValue());
 				UI.getCurrent().getNavigator().navigateTo("catalogView");
 			}
 			

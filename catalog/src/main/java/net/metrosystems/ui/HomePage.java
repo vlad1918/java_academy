@@ -5,6 +5,7 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 
+import com.vaadin.annotations.Theme;
 import com.vaadin.navigator.Navigator;
 import com.vaadin.server.VaadinRequest;
 import com.vaadin.spring.annotation.SpringUI;
@@ -21,6 +22,7 @@ import net.metrosystems.domain.StudentGroup;
 import net.metrosystems.repository.StudentGroupRepository;
 
 @SpringUI
+@Theme("myTheme")
 public class HomePage extends UI {
 	
 	@Autowired
@@ -35,6 +37,8 @@ public class HomePage extends UI {
 
 		Label staticArea = new Label("This is a static area");
 		CssLayout dummyLayout = new CssLayout();
+		dummyLayout.addStyleName("my-class");
+		dummyLayout.setId("my-id");
 		
 		mainPanel.addComponent(staticArea);
 		mainPanel.addComponent(dummyLayout);
