@@ -40,5 +40,5 @@ public class Profesor {
 	public void setCourses(List<Course> courses) {
 		this.courses = courses;
 	}
-
+	
 }

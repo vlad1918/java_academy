@@ -5,6 +5,7 @@ import java.util.List;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 
 @Entity
@@ -15,13 +16,24 @@ public class Course {
 	@OneToMany
 	@JoinColumn(name = "course_id")
 	private List<Grade> grades;
-
+	@ManyToOne
+	@JoinColumn(name = "profesor_id")
+	private Profesor profesor;
+	
 	public int getId() {
 		return id;
 	}
 
 	public void setId(int id) {
 		this.id = id;
+	}
+	
+	public Profesor getProfesor() {
+		return profesor;
+	}
+
+	public void setProfesor(Profesor profesor) {
+		this.profesor = profesor;
 	}
 
 	public List<Grade> getGrades() {

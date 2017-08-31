@@ -1,6 +1,6 @@
 package net.metrosystems.domain;
 
-import java.util.Date;
+import java.sql.Date;
 
 import javax.persistence.Entity;
 import javax.persistence.Id;
@@ -20,7 +20,7 @@ public class Grade {
 	@ManyToOne
 	@JoinColumn(name = "student_id")
 	private Student student;
-
+	
 	public int getId() {
 		return id;
 	}

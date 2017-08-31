@@ -27,24 +27,15 @@ public class StudentGroupService {
 		for (StudentGroup studentGroup : studentGroups) {
 			List<Course> courses = studentGroup.getCourses();
 			if (courses.size() > 0) {
-				courses.get(0).getId();
 				//Eager loading of grades in a course
 				for (Course course : courses) {
 					if (course.getGrades().size() > 0) {
-						course.getGrades().get(0).getId();						
-						List<Grade> grades = course.getGrades();
-						for (Grade grade : grades) {
-							grade.getStudent();
-						}						
+						course.getGrades().get(0).getId();											
 					}					
 				}
 			}
 			if (studentGroup.getStudents().size() > 0) {
 				studentGroup.getStudents().get(0).getId();
-				//Eager loading of grades in a student
-//				if (studentGroup.getStudents().get(0).getGrades().size() > 0) {
-//					studentGroup.getStudents().get(0).getGrades().get(0);
-//				}
 			}
 		}
 		
