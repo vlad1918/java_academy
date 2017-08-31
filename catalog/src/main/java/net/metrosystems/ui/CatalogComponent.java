@@ -1,10 +1,17 @@
 package net.metrosystems.ui;
 
+import java.util.ArrayList;
+import java.util.List;
+import java.util.stream.Collector;
+import java.util.stream.Collectors;
+
 import com.vaadin.ui.Component;
+import com.vaadin.ui.Grid;
 import com.vaadin.ui.GridLayout;
 import com.vaadin.ui.Label;
 
 import net.metrosystems.domain.Course;
+import net.metrosystems.domain.Grade;
 import net.metrosystems.domain.Student;
 import net.metrosystems.domain.StudentGroup;
 
@@ -30,8 +37,37 @@ public class CatalogComponent extends GridLayout {
 				}  else if (j == 0) {
 					Course course = studentGroup.getCourses().get(i-1);
 					genericComponenet = new Label(course.getName());
-				} else {
-					genericComponenet = new Label(i + "" +  j);
+				} else {					
+					List<Grade> grades = new ArrayList<Grade>();
+					Student student = studentGroup.getStudents().get(j-1);
+					Course course = studentGroup.getCourses().get(i-1);
+					
+					System.out.println(student.getLastName() + "-" + course.getName());
+					
+					//versiunea1
+					List<Grade> gradesFromCourses = course.getGrades();
+					for (Grade grade : gradesFromCourses) {
+						if (grade.getStudent().equals(student)) {
+							grades.add(grade);
+						}
+					}
+					
+//					.forEach(grade -> {
+//						if (grade.getStudent().equals(student)) {
+//							grades.add(grade);
+//						}
+//					});
+					
+					//versiunea2
+//					grades = course.getGrades().stream()
+//						.filter(grade -> grade.getStudent().equals(student))
+//						.collect(Collectors.toList());
+					
+					Grid<Grade> gradeGrid = new Grid<Grade>(Grade.class);
+					gradeGrid.setItems(grades);		
+					
+					genericComponenet = gradeGrid;
+					
 				}
 				
 				addComponent(genericComponenet, i, j);
