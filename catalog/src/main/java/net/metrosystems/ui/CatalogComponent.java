@@ -8,12 +8,22 @@ import java.util.stream.Collector;
 import java.util.stream.Collectors;
 
 import com.vaadin.shared.ui.grid.HeightMode;
+import com.vaadin.ui.Button;
 import com.vaadin.ui.Component;
+import com.vaadin.ui.CssLayout;
+import com.vaadin.ui.DateField;
+import com.vaadin.ui.FormLayout;
 import com.vaadin.ui.Grid;
 import com.vaadin.ui.GridLayout;
 import com.vaadin.ui.Label;
+import com.vaadin.ui.PopupView;
+import com.vaadin.ui.TextField;
+import com.vaadin.ui.UI;
+import com.vaadin.ui.VerticalLayout;
+import com.vaadin.ui.Window;
 import com.vaadin.ui.renderers.DateRenderer;
 
+import net.metrosystems.controller.StudentGroupService;
 import net.metrosystems.domain.Course;
 import net.metrosystems.domain.Grade;
 import net.metrosystems.domain.Student;
@@ -23,7 +33,7 @@ public class CatalogComponent extends GridLayout {
 
 	private DateFormat roDateFormat = new SimpleDateFormat("dd.MM.YYYY");
 	
-	public CatalogComponent(StudentGroup studentGroup) {
+	public CatalogComponent(StudentGroup studentGroup, StudentGroupService service) {
 
 		int nbCourses = studentGroup.getCourses().size();
 		int nbStudents = studentGroup.getStudents().size();
@@ -57,16 +67,16 @@ public class CatalogComponent extends GridLayout {
 //						}
 //					}
 					
-					course.getGrades().forEach(grade -> {
-						if (grade.getStudent().equals(student)) {
-							grades.add(grade);
-						}
-					});
+//					course.getGrades().forEach(grade -> {
+//						if (grade.getStudent().equals(student)) {
+//							grades.add(grade);
+//						}
+//					});
 					
 					//versiunea2
-//					grades = course.getGrades().stream()
-//						.filter(grade -> grade.getStudent().equals(student))
-//						.collect(Collectors.toList());
+					grades = course.getGrades().stream()
+						.filter(grade -> grade.getStudent().equals(student))
+						.collect(Collectors.toList());
 					
 					Grid<Grade> gradeGrid = new Grid<Grade>();
 					gradeGrid.setItems(grades);		
@@ -80,7 +90,16 @@ public class CatalogComponent extends GridLayout {
 					gradeGrid.setHeightMode(HeightMode.ROW);
 					gradeGrid.setHeightByRows(5);
 					
-					genericComponenet = gradeGrid;
+					CssLayout gradeLayout = new CssLayout();
+
+					Button addGradeButton = new Button("Add Grade");
+					addGradeButton.addClickListener(
+							new CatalogAddGradeListener(service, student, course, gradeGrid, grades));
+							
+					gradeLayout.addComponent(gradeGrid);
+					gradeLayout.addComponent(addGradeButton);
+					
+					genericComponenet = gradeLayout;
 					
 				}
 				
