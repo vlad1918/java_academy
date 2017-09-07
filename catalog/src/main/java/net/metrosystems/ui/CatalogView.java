@@ -18,7 +18,7 @@ import net.metrosystems.domain.StudentGroup;
 
 @UIScope
 @SpringView
-public class CatalogView extends VerticalLayout implements View {
+public class CatalogView extends VerticalLayout implements View, UiConstants {
 
 	@Autowired
 	StudentGroupService studentGroupService;
@@ -33,7 +33,7 @@ public class CatalogView extends VerticalLayout implements View {
 				ContentMode.HTML);
 
 		Button button = new Button("<< Go Back");
-		button.addClickListener(e -> UI.getCurrent().getNavigator().navigateTo(""));
+		button.addClickListener(e -> UI.getCurrent().getNavigator().navigateTo(SELECT_STUDENT_GROUP_VIEW));
 		button.addStyleName(ValoTheme.BUTTON_DANGER);
 		
 		CatalogComponent catalogComponent = new CatalogComponent(selectedStudentGroup, studentGroupService);

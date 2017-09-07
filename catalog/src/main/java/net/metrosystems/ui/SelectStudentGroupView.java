@@ -22,7 +22,7 @@ import net.metrosystems.repository.StudentGroupRepository;
 
 @UIScope
 @SpringView
-public class SelectStudentGroupView extends VerticalLayout implements View {
+public class SelectStudentGroupView extends VerticalLayout implements View, UiConstants {
 
 	@Autowired
 	StudentGroupService studentGroupService;
@@ -53,8 +53,8 @@ public class SelectStudentGroupView extends VerticalLayout implements View {
 						, Type.ERROR_MESSAGE);
 			} else {
 				//Go to catalogView
-				UI.getCurrent().getSession().setAttribute("selectedStudentGroup", studentGroupsCombo.getValue());
-				UI.getCurrent().getNavigator().navigateTo("catalogView");
+				UI.getCurrent().getSession().setAttribute(SELECTED_STUDENT_GROUP, studentGroupsCombo.getValue());
+				UI.getCurrent().getNavigator().navigateTo(CATALOG_VIEW);
 			}
 			
 		});
